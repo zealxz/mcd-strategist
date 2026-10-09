@@ -1,0 +1,9 @@
+{
+  "sex": "male",
+  "age": 24,
+  "height_cm": 175,
+  "weight_kg": 68,
+  "activity": 1.375,
+  "goal": "cut",
+  "meals_per_day": 3
+}

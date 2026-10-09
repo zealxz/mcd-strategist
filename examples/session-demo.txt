@@ -1,0 +1,28 @@
+$ python3 -m mcstrategist.cli coupons --bind
+### 领券结果
+总计: 3 张优惠券
+成功: 3 张  失败: 0 张
+- 免费脆薯饼
+- 人气麦旋风买一送一
+- 9.9元中杯冰美式
+
+$ python3 -m mcstrategist.cli recommend --sync
+== 身份档案 ==
+ 目标: cut | BMR 1679 | TDEE 2518 kcal/天 | 今日正餐预算 ≈724 kcal
+== 同步历史订单到口味记忆 ==
+ 已同步 1 个订单 / 3 件商品
+
+$ python3 -m mcstrategist.cli plan
+== 门店 1420151 今日方案（目标 cut，预算 724 kcal）==
+ 1. 薄皮焦香V翅 + 巨无霸三件套
+    ¥53.5 | 705 kcal | 蛋白 44g | 口味 0.61
+ 2. 板烧鸡腿堡三件套 + 薄皮焦香V翅 + 迷你朱古力新地
+    ¥59.0 | 723 kcal | 蛋白 43g | 口味 0.53
+ 3. 板烧鸡腿堡四件套 + 薄皮焦香V翅 + 迷你草莓新地
+    ¥52.0 | 705 kcal | 蛋白 42g | 口味 0.53
+试算第 1 方案：原价 ¥53.5 -> 实付 ¥53.5（省 ¥0.0）
+
+$ python3 -m mcstrategist.cli plan --goal bulk
+== 门店 1420151 今日方案（目标 bulk，预算 986 kcal）==
+ 1. 板烧鸡腿堡三件套 + 板烧鸡腿堡四件套 + 薄皮焦香V翅
+    ¥79.0 | 974 kcal | 蛋白 63g | 口味 0.70

@@ -1,0 +1,5 @@
+.mcp_token
+__pycache__/
+*.pyc
+.mcstrategist/
+profile.local.json
