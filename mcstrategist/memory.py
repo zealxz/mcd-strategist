@@ -54,7 +54,7 @@ class TasteMemory:
         if key in self.blacklist:
             return 0.0
         counts = self.order_counts
-        # 精确匹配，失败则找记忆中的品名是其子串/超串的最佳匹配
+        # 精确匹配，失败则子串匹配，再失败用字符相似度（菜单常改前缀/插词）
         matched = key if key in counts or key in self.ratings else ""
         if not matched:
             best = None
@@ -63,6 +63,13 @@ class TasteMemory:
                     if best is None or len(known) > len(best):
                         best = known
             matched = best or ""
+        if not matched:
+            import difflib
+            cands = [k for k in set(counts) | set(self.ratings) if len(k) >= 3]
+            if cands:
+                close = difflib.get_close_matches(key, cands, n=1, cutoff=0.6)
+                if close:
+                    matched = close[0]
         if not counts and not matched:
             base = 0.35  # 未知品：中性偏探索
         elif matched and matched in counts:
@@ -111,6 +118,8 @@ def normalize_name(name: str) -> str:
     for w in _STOPWORDS:
         name = name.replace(w, "")
     name = re.sub(r"[\s\d]+", "", name)
+    # 去掉菜单里常见的套餐后缀（板烧鸡腿堡三件套 -> 板烧鸡腿堡）
+    name = re.sub(r"(三件套|四件套|五件套|组合|套餐|中杯|大杯|小杯|份|™)$", "", name)
     return name
 
 
