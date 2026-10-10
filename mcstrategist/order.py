@@ -78,11 +78,13 @@ def parse_card_coupons(text: str) -> list[dict]:
             cur["tags"] = m.group(1).strip()
     if cur:
         coupons.append(cur)
-    # 标注今日到期
+    # 标注今日到期：取有效期第一个完整日期区间 "YYYY-MM-DD ... YYYY-MM-DD"，
+    # 结束日期 == 今天才算到期（当天生效当天结束的单日券也会命中）
     import datetime as _dt
     today = _dt.date.today().isoformat()
     for cp in coupons:
-        cp["expires_today"] = today in (cp.get("expire") or "")
+        dates = re.findall(r"(\d{4}-\d{2}-\d{2})", cp.get("expire") or "")
+        cp["expires_today"] = bool(dates) and dates[-1] == today
     return coupons
 
 
