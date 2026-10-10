@@ -136,6 +136,9 @@ def main(argv=None):
     p.add_argument("--lng", type=float, default=113.95)
     p.set_defaults(fn=cmd_stores)
 
+    p = sub.add_parser("points", help="积分管家：余额/到期预警/兑换性价比")
+    p.set_defaults(fn=cmd_points)
+
     args = ap.parse_args(argv)
     client = McdClient()
     args.fn(client, args)
@@ -149,12 +152,35 @@ def cmd_stores(client, args):
         print(f"- {s.get('storeName')} | code {s.get('storeCode')} | {s.get('address','')} | 可预约:{s.get('reservation')}")
 
 
+def cmd_points(client, args):
+    from .points import PointsAccount, fetch_redeemables, best_deals, gap_report
+    acct = PointsAccount.fetch(client)
+    print("== 积分管家 ==")
+    print(acct.summary())
+    red = fetch_redeemables(client)
+    print(f"\n== 积分商城（{len(red)} 个可兑，按性价比排序）==")
+    deals = best_deals(acct.available, red)
+    for r in deals:
+        vps = f"{r['value_per_100']} 元/百分" if r.get("value_per_100") else "?"
+        print(f" ✓ {r['name']} | {r['points']:g} 分 | {vps}")
+    print("\n== 建议 ==")
+    for line in gap_report(acct.available, red):
+        print(" ", line)
+
+
 def cmd_plan(client, args):
-    from .order import plan_day, price_combo
+    from .order import plan_day, price_combo, parse_card_coupons
     from .memory import TasteMemory
     profile = build_profile_from_config(args.profile)
     if args.goal:
         profile.goal = args.goal
+    # 到期预警
+    expiring = [cp for cp in parse_card_coupons(client.my_coupons()) if cp.get("expires_today")]
+    if expiring:
+        print("⚠️ 今日到期券，别浪费：")
+        for cp in expiring:
+            print(f"   - {cp['title']}（{cp.get('offer','')}，{cp.get('expire','')[:40]}）")
+        print()
     plan = plan_day(client, profile, args.store, TasteMemory.load(), top_k=args.top)
     print(f"== 门店 {plan.store} 今日方案（目标 {profile.goal}，预算 {profile.meal_kcal_budget:.0f} kcal）==")
     for i, cb in enumerate(plan.combos, 1):

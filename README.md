@@ -21,7 +21,8 @@
 | `coupons --bind` | 一键领取麦麦省全部可领券（真实执行） |
 | `recommend` | 今日吃什么：营养约束配餐 + 口味重排 + 叠券建议 |
 | `recommend --goal bulk` | 切换身体目标（cut/bulk/maintain） |
-| `plan --store <code>` | 完整方案：门店真实菜单 × 营养 × 口味 × 卡包券 → 算价 |
+| `plan --store <code>` | 完整方案：门店真实菜单 × 营养 × 口味 × 卡包券 → 算价，含今日到期券预警 |
+| `points` | 积分管家：余额/到期预警/兑换性价比排行（元每百分） |
 | `memory --order '巨无霸+麦乐鸡'` | 记录你吃了什么（也可 `--sync` 从历史订单自动学） |
 | `memory --rate '巨无霸=5'` | 给爱吃的打分，1 分自动进黑名单 |
 | `stores --lat 22.53 --lng 113.95` | 查附近门店 |
@@ -56,7 +57,9 @@ python3 -m mcstrategist.cli plan              # 出今日方案并试算价格
   ├─ list-nutrition-foods ─────► 160 个品的完整营养素表
   ├─ order-list ───────────────► 历史订单 → 口味记忆（频率 × 新近度 × 评分）
   ├─ query-meals ──────────────► 门店实时菜单（含价格）
-  ├─ query-my-coupons ─────────► 卡包券 → 与推荐组合自动匹配
+  ├─ query-my-coupons ─────────► 卡包券 → 与推荐组合自动匹配 + 到期预警
+  ├─ query-my-account ─────────► 积分余额/将过期积分 → 积分管家
+  ├─ mall-points-products ─────► 积分商城 → 兑换性价比排行（元/百分）
   └─ calculate-price ──────────► 真实试算（原价/优惠/实付）
 
 配餐求解器：在「每餐热量预算」约束下穷举组合

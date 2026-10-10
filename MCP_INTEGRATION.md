@@ -14,7 +14,9 @@
 |---|---|---|
 | `auto-bind-coupons` | `coupons --bind` | 用户一键领券（真实写操作，免费） |
 | `available-coupons` | `coupons` / `recommend` | 展示可领券状态 |
-| `query-my-coupons` | `plan` | 读卡包券，与推荐组合匹配 |
+| `query-my-account` | `points` | 积分余额与到期数据 |
+| `mall-points-products` | `points` | 积分商城列表 → 性价比排行 |
+| `query-my-coupons` | `plan` | 读卡包券，与推荐组合匹配 + 今日到期预警 |
 | `list-nutrition-foods` | `recommend` / `plan` | 160 品营养素表 → 配餐约束求解 |
 | `order-list` | `recommend --sync` | 历史订单 → 口味记忆初始化 |
 | `query-nearby-stores` | `stores` | 附近门店与营业/预约信息 |

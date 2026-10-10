@@ -78,6 +78,11 @@ def parse_card_coupons(text: str) -> list[dict]:
             cur["tags"] = m.group(1).strip()
     if cur:
         coupons.append(cur)
+    # 标注今日到期
+    import datetime as _dt
+    today = _dt.date.today().isoformat()
+    for cp in coupons:
+        cp["expires_today"] = today in (cp.get("expire") or "")
     return coupons
 
 
