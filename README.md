@@ -96,6 +96,16 @@ mcstrategist/
 - 麦门信徒：不愿错过任何一张券
 - 选择困难症患者：让算法替你决定今天吃什么
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=zealxz%2Fmcd-strategist&type=date&legend=top-right">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=zealxz/mcd-strategist&type=date&theme=dark&legend=bottom-right" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=zealxz/mcd-strategist&type=date&legend=bottom-right" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=zealxz/mcd-strategist&type=date&legend=bottom-right" />
+ </picture>
+</a>
+
 ## License
 
 MIT
